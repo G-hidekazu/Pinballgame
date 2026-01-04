@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Pinball Game</string>
+    <string name="plunger">Plunger</string>
+    <string name="left_flipper">Left flipper</string>
+    <string name="right_flipper">Right flipper</string>
+</resources>
