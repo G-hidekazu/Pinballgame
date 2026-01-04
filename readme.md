@@ -26,7 +26,7 @@
 
 ## よくある質問 / トラブルシュート
 - アプリを実行しても「Hello Android」だけが表示される場合: Android Studio のテンプレート画面が開いている可能性があります。必ずこのリポジトリを clone / ZIP 展開した **`Pinballgame` フォルダー直下**（`settings.gradle` と `app/build.gradle` がある階層）を Android Studio の **Open** で選んでください。また、既に端末にインストールされている別アプリが表示されている場合があるので、端末側でアプリをアンインストールしてから再ビルドすると確実です。
-- **`Plugin [id: 'com.android.application' ...] was not found` と出る場合:** ルートの `settings.gradle` にプラグイン検索用のリポジトリ指定が無いと、Gradle が Android Gradle Plugin を見つけられません。このリポジトリでは以下の設定を入れています。もしローカルの `settings.gradle` が異なっている場合は、同じ内容にしてから **Sync Project with Gradle Files** を実行してください。
+  - **`Plugin [id: 'com.android.application' ...] was not found` と出る場合:** ルートの `settings.gradle` にプラグイン検索用のリポジトリ指定が無いと、Gradle が Android Gradle Plugin を見つけられません。このリポジトリでは以下の設定を入れています。もしローカルの `settings.gradle` が異なっている場合は、同じ内容にしてから **Sync Project with Gradle Files** を実行してください。
   ```kts
   pluginManagement {
       repositories {
@@ -45,6 +45,9 @@
   }
   ```
   それでも解決しない場合は、ネットワーク（プロキシ設定を含む）を確認し、`Gradle Settings` でオフラインモードが有効になっていないかも確認してください。
+  - **`Could not find method isMinifyEnabled()` エラーが出る場合:** Android Gradle Plugin 8 以降では `buildTypes { release { minifyEnabled false } }` のようにプロパティを直接指定します。`isMinifyEnabled false` のままだとビルド設定時にメソッドが見つからず失敗するため、`minifyEnabled false` に書き換えた上で Gradle を再同期してください（本リポジトリは修正済み）。
+  - **`Your project path contains non-ASCII characters` と出る場合 (Windows):** Gradle の既知制約で、パスに日本語など非 ASCII 文字が含まれているとビルドが止まることがあります。推奨は **ASCII だけのパス（例: `C:\Projects\Pinballgame`）にフォルダーを移動** することです。
+  - すぐ移動できない場合の回避策として、リポジトリ直下の `gradle.properties` に `android.overridePathCheck=true` を設定するとビルドを続行できます（このリポジトリでは既に設定済みです）。将来的なトラブルを避けるため、可能なら ASCII パスへ移動してから再同期してください。
 
 ## 仕組みの概要
 - `Canvas` 上で盤面、パドル、ボールを描画

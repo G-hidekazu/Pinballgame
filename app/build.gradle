@@ -17,7 +17,10 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled false
+            // Use the Groovy DSL property form; `isMinifyEnabled` is not a valid setter in
+            // recent Android Gradle Plugin versions and causes "Could not find method" errors
+            // during configuration.
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
