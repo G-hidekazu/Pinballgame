@@ -1,6 +1,7 @@
 # Pinballgame
 
 シンプルな Jetpack Compose 製のピンボール サンプルです。プランジャーと左右のパドル（フリッパー）を備え、タッチでもボタンでも操作できます。
+**コードは `app/src/main/java/com/example/pinball/MainActivity.kt` の 1 ファイルのみ** で構成しており、テーマや文字列リソースも不要です。
 
 ## ビルド方法
 1. Android Studio Iguana 以降でこのリポジトリを開きます。
@@ -50,7 +51,6 @@
     1. Android Studio でプロジェクトルートの `gradle.properties` を開き、`android.useAndroidX=true` があるか確認する。
     2. 変更した場合は **File > Sync Project with Gradle Files** を実行し、同期完了まで待つ。
     3. まだ同じエラーが出るときは **Build > Clean Project** → **Build > Rebuild Project** を順に実行してキャッシュをクリアする。
-  - **`resource style/Theme.Material3.DayNight.NoActionBar not found` で失敗する場合:** Compose Material3 のテーマリソースは `com.google.android.material:material` 依存に含まれます。`app/build.gradle` の `dependencies` に `implementation "com.google.android.material:material:1.12.0"` が入っているか確認し、入っていなければ追加して Gradle Sync を行ってください（本リポジトリでは追加済み）。
   - **`Your project path contains non-ASCII characters` と出る場合 (Windows):** Gradle の既知制約で、パスに日本語など非 ASCII 文字が含まれているとビルドが止まることがあります。推奨は **ASCII だけのパス（例: `C:\Projects\Pinballgame`）にフォルダーを移動** することです。
   - すぐ移動できない場合の回避策として、リポジトリ直下の `gradle.properties` に `android.overridePathCheck=true` を設定するとビルドを続行できます（このリポジトリでは既に設定済みです）。将来的なトラブルを避けるため、可能なら ASCII パスへ移動してから再同期してください。
   - **`Unable to delete directory ... merged_res_blame_folder` で `mergeDebugResources` が失敗する場合 (Windows):** OneDrive 配下やウイルス対策ソフトによるファイルロックで Gradle のキャッシュ削除に失敗することがあります。以下を順に試してください。
