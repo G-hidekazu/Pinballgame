@@ -46,6 +46,10 @@
   ```
   それでも解決しない場合は、ネットワーク（プロキシ設定を含む）を確認し、`Gradle Settings` でオフラインモードが有効になっていないかも確認してください。
   - **`Could not find method isMinifyEnabled()` エラーが出る場合:** Android Gradle Plugin 8 以降では `buildTypes { release { minifyEnabled false } }` のようにプロパティを直接指定します。`isMinifyEnabled false` のままだとビルド設定時にメソッドが見つからず失敗するため、`minifyEnabled false` に書き換えた上で Gradle を再同期してください（本リポジトリは修正済み）。
+  - **`android.useAndroidX=true` を設定していないとビルドが止まる場合:** Compose や Activity など AndroidX ライブラリを使っているため、ルートの `gradle.properties` に `android.useAndroidX=true` を追加してください（本リポジトリでは既に記載済み）。`checkDebugAarMetadata` タスクで AndroidX 依存を検出して止まる場合は、設定を追加してから Gradle Sync を実行すると解消します。
+    1. Android Studio でプロジェクトルートの `gradle.properties` を開き、`android.useAndroidX=true` があるか確認する。
+    2. 変更した場合は **File > Sync Project with Gradle Files** を実行し、同期完了まで待つ。
+    3. まだ同じエラーが出るときは **Build > Clean Project** → **Build > Rebuild Project** を順に実行してキャッシュをクリアする。
   - **`Your project path contains non-ASCII characters` と出る場合 (Windows):** Gradle の既知制約で、パスに日本語など非 ASCII 文字が含まれているとビルドが止まることがあります。推奨は **ASCII だけのパス（例: `C:\Projects\Pinballgame`）にフォルダーを移動** することです。
   - すぐ移動できない場合の回避策として、リポジトリ直下の `gradle.properties` に `android.overridePathCheck=true` を設定するとビルドを続行できます（このリポジトリでは既に設定済みです）。将来的なトラブルを避けるため、可能なら ASCII パスへ移動してから再同期してください。
 
