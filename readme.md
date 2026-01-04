@@ -53,6 +53,10 @@
   - **`resource style/Theme.Material3.DayNight.NoActionBar not found` で失敗する場合:** Compose Material3 のテーマリソースは `com.google.android.material:material` 依存に含まれます。`app/build.gradle` の `dependencies` に `implementation "com.google.android.material:material:1.12.0"` が入っているか確認し、入っていなければ追加して Gradle Sync を行ってください（本リポジトリでは追加済み）。
   - **`Your project path contains non-ASCII characters` と出る場合 (Windows):** Gradle の既知制約で、パスに日本語など非 ASCII 文字が含まれているとビルドが止まることがあります。推奨は **ASCII だけのパス（例: `C:\Projects\Pinballgame`）にフォルダーを移動** することです。
   - すぐ移動できない場合の回避策として、リポジトリ直下の `gradle.properties` に `android.overridePathCheck=true` を設定するとビルドを続行できます（このリポジトリでは既に設定済みです）。将来的なトラブルを避けるため、可能なら ASCII パスへ移動してから再同期してください。
+  - **`Unable to delete directory ... merged_res_blame_folder` で `mergeDebugResources` が失敗する場合 (Windows):** OneDrive 配下やウイルス対策ソフトによるファイルロックで Gradle のキャッシュ削除に失敗することがあります。以下を順に試してください。
+    1. Android Studio を一度閉じ、エクスプローラーやウイルス対策で `Pinballgame\app\build` 以下を開いていないか確認する。
+    2. ルートの `gradle.properties` に `org.gradle.vfs.watch=false` を追加（本リポジトリは記載済み）し、**Build > Clean Project** の後に **Rebuild Project** を実行する。
+    3. まだ失敗する場合は、`app\build` フォルダーを手動で削除してから再ビルドする。
 
 ## 仕組みの概要
 - `Canvas` 上で盤面、パドル、ボールを描画
